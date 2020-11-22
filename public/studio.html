@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Youtube clone | Studio</title>
+    <style >
+        #fileUpload {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #uploader{
+            -webkit-appearance: none;
+            appearance: none;
+            width: 50%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="fileUpload">
+        <progress value="0" max="100" id="uploader">0%</progress>
+        <input type="file" value="upload" id="fileButton">
+    </div>
+
+    <!--Include Firebase-->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+
+    <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+    apiKey: "AIzaSyBYDMKxPoohDL-OBKUgF4AGZ9pRfF083S4",
+    authDomain: "clone-5d254.firebaseapp.com",
+    databaseURL: "https://clone-5d254.firebaseio.com",
+    projectId: "clone-5d254",
+    storageBucket: "clone-5d254.appspot.com",
+    messagingSenderId: "656808296060",
+    appId: "1:656808296060:web:e586393578acce07bdd3f9",
+    measurementId: "G-76P4WEHQ7H"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    // var storage = firebase.storage();
+
+    var uploader = document.getElementById('uploader');
+    var fileButton = document.getElementById('fileButton');
+
+    fileButton.addEventListener('change', function(e){
+        // Get file
+        var file = e.target.files[0];
+        // Create storage reference
+        var storeRef = firebase.storage().ref('videos/' + file.name);
+        // Upload file
+        var task = storeRef.put(file);
+        // Update progress Bar
+        task.on('state_changed',
+            function progress(snapshot){
+                var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                uploader.value = percentage;
+            },
+
+            function error(err) {
+
+            },
+
+            function complete() {
+                if (uploader.value = 100){
+                    alert("File uploaded successfully");
+                }
+            }
+        )
+    });
+
+
+    </script>
+</body>
+</html>

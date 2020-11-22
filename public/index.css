@@ -1,0 +1,52 @@
+:root{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#navbar{
+    height: 9vh;
+}
+#navbar div img{
+    width: 15vw;
+    height: 8vh;
+}
+#navbar div div.search-container{
+    float: right;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+main{
+    height: 91vh;
+    width: 100vw;
+    display: flex;
+}
+
+#sidebar{
+    width: 5vw;
+}
+
+#videoframe{
+    width: 95vw;
+}
+
+#sidebar div button{
+    font-size: 1.5em;
+    color: gray;
+    width: 100%;
+    padding: 25% 0 2% 0;
+}
+#sidebar div button:hover{
+    background: lightgrey;
+}
+#sidebar div button p{
+    font-size: .4em;
+    width: 100%;
+}
